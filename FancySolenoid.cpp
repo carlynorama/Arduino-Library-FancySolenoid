@@ -203,10 +203,18 @@ void FancySolenoid::setFullPeriod(long newFP){
 
 
 void FancySolenoid::updatePin(bool pinValue) {
-    if (pinValue) {
-        digitalWrite(_myPin, HIGH);
+    
+    if(!_type) {
+        digitalWrite(_myPin, pinValue);
     } else {
-        digitalWrite(_myPin, LOW);
+        _registerValue = *_myRegister;
+        if (pinValue) {
+            _registerValue = _registerValue | (1 << _myBit);
+        } else {
+            _bitmask =  0xFF ^ (1 << _myBit);
+            _registerValue = _registerValue & _bitmask;
+        }
+      *_myRegister = _registerValue;  
     }
 
 }
