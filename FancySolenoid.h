@@ -55,7 +55,6 @@ class FancySolenoid {
     int _myBit;
     unsigned char *_myRegister;
     unsigned char _registerValue;
-    unsigned char _bitmask;
     bool _type;  //direct pin or shift register
     bool _mode;  //HIGH == pressed (1) or LOW == pressed (0)
     

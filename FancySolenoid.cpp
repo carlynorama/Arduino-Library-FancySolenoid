@@ -35,7 +35,7 @@ FancySolenoid::FancySolenoid(int myPin, bool myMode)
     _pinState= 0;
     
     _dutyCycle = 10;
-    _fullPeriod = 2000;
+    _fullPeriod = 1000;
       
 }
 
@@ -209,10 +209,9 @@ void FancySolenoid::updatePin(bool pinValue) {
     } else {
         _registerValue = *_myRegister;
         if (pinValue) {
-            _registerValue = _registerValue | (1 << _myBit);
+            _registerValue |= (1 << _myBit);
         } else {
-            _bitmask =  0xFF ^ (1 << _myBit);
-            _registerValue = _registerValue & _bitmask;
+            _registerValue &=~ (1 << _myBit);
         }
       *_myRegister = _registerValue;  
     }
